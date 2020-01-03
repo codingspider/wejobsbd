@@ -198,8 +198,6 @@ class HomeController extends Controller
         } catch (Exception $e) {
 
         }
-
-
         return response()->download(storage_path('helloWorld.docx'));
     }
 
