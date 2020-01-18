@@ -177,8 +177,11 @@ return [
         //Custom
         Barryvdh\Debugbar\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-         Maatwebsite\Excel\ExcelServiceProvider::class,
-         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+
+
 
     ],
 
@@ -235,6 +238,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
          'Excel' => Maatwebsite\Excel\Facades\Excel::class,
          'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

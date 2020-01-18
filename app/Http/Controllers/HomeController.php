@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
 use DB;
 use Redirect;
+use Illuminate\Support\Facades\Auth;
+use PDF;
+
+
 class HomeController extends Controller
 {
     /**
@@ -110,10 +114,9 @@ class HomeController extends Controller
         DB::table('genders')->insert([
             'name' => $request->gender,
         ]);
-
-
         return back()->with('success', 'Gender Category Added. ');
     }
+
     public function edit_gender_submit(Request $request){
         DB::table('genders')->update([
             'name' => $request->gender,
@@ -182,23 +185,28 @@ class HomeController extends Controller
 
     public function generateDocx()
     {
-        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        set_time_limit(180);
+        $id = Auth::id();
+
+        $personaldetails = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('first_name')->first();
+        $address = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('present_add')->orderBy('id', 'desc')->first();
+        $career = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('present_sallary')->orderBy('id', 'desc')->first();
+        $prefer_jobs = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('job_location')->orderBy('id', 'desc')->first();
+        $career_summery = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('summery')->orderBy('id', 'desc')->first();
+        $education_level = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('education_level')->get();
+        $training_title = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('training_title')->get();
+        $certificate = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('certificate')->get();
+        $employments = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('com_name')->get();
+        $others_employments = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('batch')->get();
+        $specials = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('skill')->get();
+        $languages = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('language')->get();
+        $reference = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('ref_name')->get();
+        $images = DB::table('resumes')->whereNotNull('photograph')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+        $gender = DB::table('genders')->get();
 
 
-        $section = $phpWord->addSection();
-
-
-        $description = "Dummy Text";
-        $section->addText($description);
-
-
-        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        try {
-            $objWriter->save(storage_path('helloWorld.docx'));
-        } catch (Exception $e) {
-
-        }
-        return response()->download(storage_path('helloWorld.docx'));
+        $pdf = PDF::loadView('pdf_resume', compact('personaldetails', 'address', 'career', 'prefer_jobs', 'career_summery', 'education_level', 'training_title', 'certificate', 'employments', 'others_employments', 'specials', 'languages', 'reference', 'gender', 'images'));
+        return $pdf->download('resume.pdf');
     }
 
 }
