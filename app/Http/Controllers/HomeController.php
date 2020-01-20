@@ -206,7 +206,7 @@ class HomeController extends Controller
 
 
         $pdf = PDF::loadView('pdf_resume', compact('personaldetails', 'address', 'career', 'prefer_jobs', 'career_summery', 'education_level', 'training_title', 'certificate', 'employments', 'others_employments', 'specials', 'languages', 'reference', 'gender', 'images'));
-        return $pdf->download('resume.pdf');
+       return $pdf->stream('document.pdf');
     }
 
 }

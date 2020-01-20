@@ -428,16 +428,12 @@
                             <p class="text-muted">@lang('app.resume_file_types')</p>
                             {!! e_form_error('resume', $errors) !!}
                         </div>
-
                         <input type="hidden" name="job_id" value="{{$job->id}}" />
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">@lang('app.close')</button>
-                        <button type="submit" class="btn btn-primary" id="report_ad">@lang('app.apply_online')</button>
-                    </div>
-
-
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">@lang('app.close')</button>
+                            <button type="submit" class="btn btn-primary" id="report_ad">@lang('app.apply_online')</button>
+                        </div>
                 </form>
             </div>
 

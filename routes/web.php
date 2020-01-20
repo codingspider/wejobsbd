@@ -4,6 +4,7 @@ if(version_compare(PHP_VERSION, '7.2.0', '>=')) {
     error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 }
 Route::get('generate-docx', 'HomeController@generateDocx');
+Route::get('resume/doc/file/export', 'ResumeController@resumegenerateDocx');
 
 Route::get('test', 'TestController@test');
 Route::post('test/fetch', 'TestController@fetch');

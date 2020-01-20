@@ -3,6 +3,9 @@
 @section('content')
 
 <button onclick="window.location.href = '{{ URL::to('generate-docx') }}'">Export as .PDF</button>
+<button onclick="window.location.href = '{{ URL::to('resume/doc/file/export') }}'">Export as Doc</button>
+<button onclick="window.location.href = '{{ URL::to('uploads/'.$word_resume->resume) }}'">View Your Uploaded Resume</button>
+
 <button type="button" data-toggle="modal" data-target="#exampleModal">
     Upload Your CV
 </button>
