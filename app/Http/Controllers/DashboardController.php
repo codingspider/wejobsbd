@@ -39,7 +39,6 @@ class DashboardController extends Controller
         $career = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('present_sallary')->first();
         $prefer_jobs = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('job_location')->first();
         $career_summery = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('summery')->first();
-
         $education_level = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('education_level')->get();
         $training_title = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('training_title')->get();
         $certificate = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('certificate')->get();

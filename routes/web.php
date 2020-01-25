@@ -21,6 +21,7 @@ Route::post('/dashboard/employment/details/edit', 'ResumeController@employement_
 Route::post('/dashboard/army/edit/submit', 'ResumeController@others_employement_details_edit');
 Route::post('/dashboard/others/information/details/edit', 'ResumeController@others_details_edit');
 Route::post('/dashboard/others/information/reference/edit', 'ResumeController@reference_details_edit');
+Route::post('/other/relavant/information/update', 'ResumeController@other_relavamt_information_update');
 //delete routes
 Route::get('/dashboard/personaldetails/delete/{id}', 'TestController@personaldetails_delete');
 Route::get('/dashboard/academicdetails/delete/{id}', 'TestController@academicdetails_delete');

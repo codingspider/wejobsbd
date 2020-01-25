@@ -88,8 +88,9 @@ class ResumeController extends Controller
             'looking_for' =>$request->looking_for,
             'job_nature' =>$request->job_nature,
             'exp_sallary' =>$request->exp_sallary,
-
+            'objective' =>$request->objective,
         ]);
+
        return back()->with('success', 'Address  Details has been updated. ');
 
     }
@@ -156,6 +157,17 @@ class ResumeController extends Controller
             'keywords' =>$request->keyword,
             'user_id' => Auth::id()
 
+    	]);
+    	return back()->with('success', 'Other relavant Details has been added. ');
+
+    }
+
+    public function other_relavamt_information_update (Request $request){
+        $id = $request->id;
+    	DB::table('resumes')->where('id', $id)->update([
+    		'summery' =>$request->career_summery,
+    		'qualification' =>$request->special_qualification,
+            'keywords' =>$request->keyword,
     	]);
     	return back()->with('success', 'Other relavant Details has been added. ');
 
@@ -520,7 +532,6 @@ class ResumeController extends Controller
     public function view_resume(){
 
     $id =Auth::id();
-
     $personaldetails = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('first_name')->first();
     $address = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('present_add')->orderBy('id', 'desc')->first();
     $career = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('present_sallary')->orderBy('id', 'desc')->first();
@@ -548,12 +559,10 @@ class ResumeController extends Controller
 
 
         $section = $phpWord->addSection();
-
-
-        $description =  'hello';
-
-        $section->addText($description);
-
+        $html = "<h1>HELLO WORLD!</h1>";
+        $html .= "<table><tbody><tr><td><table><tbody><tr><td><h3>Resume of Rokon</h3></td></tr><tr><td><p>Dhanmondi</p></td></tr><tr><td><p>Mobile No 1: 01796727545</p></td></tr></tbody></table></td></tr></tbody></table>";
+        $html .= "<table><tr><td>A table</td><td>Cell</td></tr></table>";
+        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
 
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
         try {

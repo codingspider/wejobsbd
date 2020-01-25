@@ -110,12 +110,6 @@ $user = Auth::user();
                             <li class="">
                                 <a href="{{route('import_resume')}}" class="list-group-item-action active">
                                     <span class="sidebar-icon"><i class="la la-list-alt"></i> </span>
-                                    <span class="title">Add Resume</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="{{route('edit-resume')}}" class="list-group-item-action active">
-                                    <span class="sidebar-icon"><i class="la la-list-alt"></i> </span>
                                     <span class="title">Edit Resume</span>
                                 </a>
                             </li>
@@ -143,8 +137,8 @@ $user = Auth::user();
                                     <span class="title">@lang('app.categories')</span>
                                 </a>
                             </li>
-                            
-                            
+
+
                             <li class="#">
                                 <a href="{{URL::to('/add/gender') }}" class="list-group-item-action active">
                                     <span class="sidebar-icon"><i class="la la-th-large"></i> </span>
@@ -165,7 +159,7 @@ $user = Auth::user();
                                 </a>
                             </li>
 
-                   
+
                             @endif
 
                             @if( ! $user->is_user())

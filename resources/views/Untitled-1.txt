@@ -1,26 +1,45 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="{{ asset('assets/FileSaver.js')}}"></script>
-<script src="{{ asset('assets/jquery.wordexport.js') }}"></script>
 
-<button onclick="window.location.href = '{{ URL::to('generate-docx') }}'">Export as .PDF</button>
-<button class="word-export" href="javascript:void(0)"> Export as .doc </button>
-<button onclick="window.location.href = '{{ URL::to('uploads/'.$word_resume->resume) }}'">View Your Uploaded Resume</button>
+<style type="text/css">
+    #sailorTableArea {
+        max-height: 300px;
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+
+    #sailorTable {
+        white-space: normal;
+    }
+
+    tbody {
+        display: block;
+        height: 200px;
+        overflow: auto;
+    }
+
+    thead,
+    tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+</style>
+
+
+<button onclick="getPDF()" id="downloadbtn"><b>Click to Download Resume as PDF</b></button>
 
 <button type="button" data-toggle="modal" data-target="#exampleModal">
     Upload Your CV
 </button>
 @include('modal.resume_upload')
-
-<div class="content" id="page-content">
-<div class="col-md-12" >
+<div class="col-md-12 canvas_div_pdf" id="content">
     <table class="table table-image">
         <tbody>
             <tr class="row">
                 <th class="col-sm-9">
-                    <h3>Resume of {{ $personaldetails->first_name }} {{ $personaldetails->last_name }} </h3>
+                    <h3>Resume of   {{$personaldetails->first_name}} </h3>
                     <p>Address: {{ $address->present_add }}, {{ $address->permanent_add }} </p>
                     <p>Mobile No 1: {{$personaldetails->mobile1}}</p>
                     <p>Mobile No 2 : {{$personaldetails->mobile2}}</p>
@@ -83,13 +102,12 @@
     </table>
     @endif
 
-    @if(!empty($employments))
+    @if(count($employments) > 0)
     <div>
         <h3>Employment History </h3>
     </div>
     @foreach($employments as $history )
     <table class="table table-bordered">
-
         <thead>
             <tr>
                 <th scope="col">{{ $history->responsibilities}}</th>
@@ -109,7 +127,7 @@
     @endforeach
     @endif
 
-    @if(!empty($education_level))
+    @if(count($education_level) >0)
     <table class="table table-bordered">
         <h3>Academic Qualification:</h3>
 
@@ -138,12 +156,11 @@
             @endforeach
         </tbody>
         <br>
-
     </table>
     <br>
     @endif
 
-    @if(!empty($training_title))
+    @if(count($training_title) > 0)
     <table class="table table-bordered">
         <h3>Training Summary:</h3>
         <thead>
@@ -160,6 +177,7 @@
         <tbody>
             @foreach($training_title as $training )
             <tr>
+
                 <th scope="row">{{ $training->training_title }}</th>
                 <td>{{ $training->training_country  }} </td>
                 <td>{{ $training->training_topics }} </td>
@@ -174,34 +192,10 @@
     @endif
     <br>
 
-    @if(@empty($education_level))
-    <table class="table table-bordered">
-        <h3>Professional Qualification:</h3>
-        <thead>
-            <tr>
-                <th scope="col">Certificate </th>
-                <th scope="col">Certificate Loaction </th>
-                <th scope="col">Certificate Period</th>
-                <th scope="col">Certificate Institiute </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($certificate as $certifi)
-            <tr>
-                <th scope="row">{{ $certifi->certificate }} </th>
-                <td>{{ $certifi->certificate_location }} </td>
-                <td>{{ $certifi->certificate_period }} </td>
-                <td>{{ $certifi->certificate_location_inst }} </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    @endif
     @if($career != NULL )
     <table class="table">
         <h3>Career and Application Information:</h3>
         <thead>
-
         </thead>
         <tbody>
             <tr>
@@ -212,13 +206,12 @@
                     <p>Preferred Job Category : {{ $prefer_jobs->job_categories }}</p>
                     <p>Preferred District : {{$prefer_jobs->job_location }}</p>
                 </td>
-
             </tr>
-
         </tbody>
     </table>
     @endif
 
+    @if(count($specials) > 0)
     <table class="table table-bordered">
         <h3>Specialization:</h3>
         <thead>
@@ -237,7 +230,9 @@
 
         </tbody>
     </table>
+    @endif
 
+      @if(count($languages) > 0)
     <table class="table table-bordered">
         <h3>Language Profeciency </h3>
         <thead>
@@ -259,6 +254,9 @@
             @endforeach
         </tbody>
     </table>
+    @endif
+
+
     <table class="table table-borderless">
         <h3>Personal Details :</h3>
         <thead>
@@ -279,7 +277,7 @@
             </tr>
         </tbody>
     </table>
-
+ @if(count($reference) > 0)
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -313,21 +311,45 @@
             </tr>
         </tbody>
     </table>
+    @endif
 
-</div>
 </div>
 <script>
-jQuery(document).ready(function($) {
-  $("button.word-export").click(function(event) {
-    $("#page-content").wordExport();
-  });
-});
+function getPDF(){
 
-function myFunction() {
-  document.getElementById("page-content").style.textAlign = "left";
-}
+ var HTML_Width = $(".canvas_div_pdf").width();
+ var HTML_Height = $(".canvas_div_pdf").height();
+ var top_left_margin = 20;
+ var PDF_Width = HTML_Width+(top_left_margin*2);
+ var PDF_Height = (PDF_Width*2)+(top_left_margin*2);
+ var canvas_image_width = HTML_Width;
+ var canvas_image_height = HTML_Height;
+
+ var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+
+
+ html2canvas($(".canvas_div_pdf")[0],{allowTaint:true}).then(function(canvas) {
+ canvas.getContext('2d');
+
+ console.log(canvas.height+"  "+canvas.width);
+
+
+ var imgData = canvas.toDataURL("image/jpeg", 1.0);
+ var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
+     pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+
+
+ for (var i = 1; i <= totalPDFPages; i++) {
+ pdf.addPage(PDF_Width, PDF_Height);
+ pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+ }
+
+     pdf.save("Resume-Document.pdf");
+        });
+ };
 </script>
 
 
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 @endsection

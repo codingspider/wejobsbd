@@ -1,5 +1,5 @@
 
-        <form>
+        <form action="{{ URL::to('other/relavant/information/update') }}" method="POST">
           <div class="card-body">
             <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
             <div class="form-row">

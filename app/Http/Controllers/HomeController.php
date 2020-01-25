@@ -205,7 +205,7 @@ class HomeController extends Controller
         $gender = DB::table('genders')->get();
 
 
-        $pdf = PDF::loadView('pdf_resume', compact('personaldetails', 'address', 'career', 'prefer_jobs', 'career_summery', 'education_level', 'training_title', 'certificate', 'employments', 'others_employments', 'specials', 'languages', 'reference', 'gender', 'images'));
+        $pdf = PDF::loadView('export', compact('personaldetails', 'address', 'career', 'prefer_jobs', 'career_summery', 'education_level', 'training_title', 'certificate', 'employments', 'others_employments', 'specials', 'languages', 'reference', 'gender', 'images'));
        return $pdf->stream('document.pdf');
     }
 
