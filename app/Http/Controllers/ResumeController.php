@@ -569,8 +569,6 @@ class ResumeController extends Controller
             $objWriter->save(storage_path('helloWorld.docx'));
         } catch (Exception $e) {
         }
-
-
         return response()->download(storage_path('helloWorld.docx'));
     }
 

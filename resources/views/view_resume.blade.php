@@ -12,11 +12,13 @@
 <button type="button" data-toggle="modal" data-target="#exampleModal">
     Upload Your CV
 </button>
+
 @include('modal.resume_upload')
 
 <div class="content" id="page-content">
 <div class="col-md-12" >
-    <table class="table table-image">
+       <!-- top table -->
+        <table class="table table-image">
         <tbody>
             <tr class="row">
                 <th class="col-sm-9">
@@ -36,33 +38,36 @@
             </tr>
         </tbody>
     </table>
+    <!-- top table end -->
     @if($career->objective != NULL)
-    <table class="table table-striped">
+    <table class="color">
         <thead>
             <tr>
-                <th style="background-color: #d8d8f0;" scope="row">Career Objective:</th>
+                <th>Career Objective:</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <th>{{ $career->objective }}</th>
-
+                <td>
+                    <p>{{ $career->objective }}</p>
+                </td>
             </tr>
         </tbody>
     </table>
     @endif
 
     @if($career_summery->summery != NULL)
-    <table class="table table-striped">
+    <table class="color">
         <thead>
             <tr>
-                <th style="background-color: #d8d8f0;" scope="row">Career Summary:</th>
+                <th>Career Summary:</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <th>{{ $career_summery->summery}}</th>
-
+                <td>
+                    <p>{{ $career_summery->summery}}</p>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -84,18 +89,16 @@
     @endif
 
     @if(!empty($employments))
-    <div>
-        <h3>Employment History </h3>
-    </div>
-    @foreach($employments as $history )
-    <table class="table table-bordered">
 
+
+    <table class="table table-bordered">
         <thead>
             <tr>
-                <th scope="col">{{ $history->responsibilities}}</th>
+                <th scope="col">Employment History</th>
             </tr>
         </thead>
         <tbody>
+            @foreach($employments as $history )
             <tr>
                 <th scope="row">
                     <p>Company Name: {{ $history->com_name }}</p>
@@ -103,14 +106,15 @@
                     <p>Designation : {{ $history->designation}} </p>
                 </th>
             </tr>
+             @endforeach
         </tbody>
     </table>
     <br>
-    @endforeach
+
     @endif
 
     @if(!empty($education_level))
-    <table class="table table-bordered">
+<table class="table table-bordered">
         <h3>Academic Qualification:</h3>
 
         <thead>
@@ -137,8 +141,6 @@
             </tr>
             @endforeach
         </tbody>
-        <br>
-
     </table>
     <br>
     @endif

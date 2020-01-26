@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,17 +84,17 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <h3>Resume of {{$personaldetails->first_name}} {{$personaldetails->last_name}}</h3>
+                                    <h3>Resume of {{ $personaldetails->first_name }} {{ $personaldetails->last_name }}</h3>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <p>{{ $address->present_add }}, {{ $address->permanent_add }} </p>
+                                    <p>Address: {{ $address->present_add }}, {{ $address->permanent_add }}</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <p>Mobile No 1: {{$personaldetails->mobile1}}</p>
+                                    <p>Mobile No 1:  {{$personaldetails->mobile1}}</p>
                                 </td>
                             </tr>
                             <tr>
@@ -112,19 +111,15 @@
                     </table>
                 </td>
                 <td>
-                   @if($images->photograph)
-                    <img src="{{ asset('images/'. $images->photograph )}}" style=" vertical-align: middle; height: 220px; width: 200px;" class="img-fluid img-thumbnail">
-                    @else
-                    <img id="image_preview_container" src="{{ asset('/images/download.png') }}" alt="preview image" style="max-height: 150px;">
-                    @endif
+                    <img src="{{ public_path('images/') . $images->photograph }}" alt=""/>
                 </td>
             </tr>
         </tbody>
     </table>
     <!-- top table end -->
     <br><br>
-    @if($career->objective != NULL)
     <!-- Career Objective: -->
+    @if($career->objective != NULL)
     <table class="color">
         <thead>
             <tr>
@@ -139,11 +134,11 @@
             </tr>
         </tbody>
     </table>
-    <!-- Career Objective end -->
     @endif
+    <!-- Career Objective end -->
     <br><br>
-      @if($career_summery->summery != NULL)
     <!-- Career Summary: -->
+       @if($career_summery->summery != NULL)
     <table class="color">
         <thead>
             <tr>
@@ -161,8 +156,8 @@
     @endif
     <!-- Career Summary end -->
     <br><br>
-    @if($career_summery->qualification != NULL)
     <!-- Special Qualification: -->
+    @if($career_summery->qualification != NULL)
     <table class="color">
         <thead>
             <tr>
@@ -179,19 +174,18 @@
     </table>
     @endif
     <!-- Special Qualification end -->
+    <br><br>
+    <!-- Training Summary: -->
     @if(!empty($employments))
-    <div>
-        <h3>Employment History </h3>
-    </div>
-    @foreach($employments as $history )
-    <table class="table table-bordered">
 
+    <table class="table table-bordered">
         <thead>
             <tr>
-                <th scope="col">{{ $history->responsibilities}}</th>
+                <th scope="col">Employment History</th>
             </tr>
         </thead>
         <tbody>
+            @foreach($employments as $history )
             <tr>
                 <th scope="row">
                     <p>Company Name: {{ $history->com_name }}</p>
@@ -199,47 +193,57 @@
                     <p>Designation : {{ $history->designation}} </p>
                 </th>
             </tr>
+             @endforeach
         </tbody>
     </table>
     <br>
-    @endforeach
+
     @endif
+    <br>
+  @if(!empty($education_level))
 
-    <br><br>
-    @if(!empty($education_level))
-    <table class="table table-bordered">
-        <h3>Academic Qualification:</h3>
-
+    <table>
         <thead>
             <tr>
-                <th scope="col">Exam Title</th>
-                <th scope="col">Concentration/Major</th>
-                <th scope="col">Institute</th>
-                <th scope="col">Result</th>
-                <th scope="col">Pas.Year</th>
-                <th scope="col">Duration</th>
-                <th scope="col">Achievement</th>
+                <th><span class="title">Training Summary:</span></th>
             </tr>
         </thead>
         <tbody>
-            @foreach($education_level as $education)
             <tr>
-                <td>{{ $education->education_level }} </td>
-                <td>{{ $education->major_group  }} </td>
-                <td>{{ $education->Institute }} </td>
-                <td> {{ $education->result }}</td>
-                <td>{{ $education->passing_year }} </td>
-                <td>{{ $education->duration }} </td>
-                <td>{{ $education->achievement }} </td>
+                <td>
+                    <table class="border">
+                        <thead>
+                            <tr>
+                                <th>Exam Title</th>
+                                <th>Concentration/Major</th>
+                                <th>Institute</th>
+                                <th>Result</th>
+                                <th>Pas.Year</th>
+                                <th>Duration</th>
+                                <th>Achievement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             @foreach($training_title as $training )
+                            <tr>
+                               <td>{{ $education->education_level }} </td>
+                                <td>{{ $education->major_group  }} </td>
+                                <td>{{ $education->Institute }} </td>
+                                <td> {{ $education->result }}</td>
+                                <td>{{ $education->passing_year }} </td>
+                                <td>{{ $education->duration }} </td>
+                                <td>{{ $education->achievement }} </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </td>
             </tr>
-            @endforeach
         </tbody>
-         </table>
-         @endif
-
-    <br><br>
-       @if(!empty($training_title))
-    <!-- Training Summary: -->
+    </table>
+ @endif
+ <br>
+ <br>
     <table>
         <thead>
             <tr>
@@ -264,39 +268,23 @@
                         <tbody>
                              @foreach($training_title as $training )
                             <tr>
-                                <td>
-                                    <p>{{ $training->training_title }}</p>
-                                </td>
-                                <td>
-                                    <p>{{ $training->training_country  }} </p>
-                                </td>
-                                <td>
-                                    <p>{{ $training->training_topics }} </p>
-                                </td>
-                                <td>
-                                    <p>{{ $training->training_year }}</p>
-                                </td>
-                                <td>
-                                    <p>{{ $training->training_inst }}</p>
-                                </td>
-                                <td>
-                                    <p>{{ $training->training_period  }}</p>
-                                </td>
-                                <td>
-                                    <p>{{ $training->training_locate }}</p>
-                                </td>
+                                <th>{{ $training->training_title }}</th>
+                                <td>{{ $training->training_country  }} </td>
+                                <td>{{ $training->training_topics }} </td>
+                                <td>{{ $training->training_year }}</td>
+                                <td>{{ $training->training_inst }} </td>
+                                <td>{{ $training->training_period  }} </td>
+                                <td>{{ $training->training_locate }} </td>
                             </tr>
-                              @endforeach
+                            @endforeach
                         </tbody>
                     </table>
                 </td>
             </tr>
         </tbody>
     </table>
-    @endif
     <!-- Training Summary end -->
     <br><br>
-     @if($career != NULL )
     <!-- Career and Application Information: -->
     <table>
         <thead class="border_bottom">
@@ -313,40 +301,22 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <p>Looking For :  {{ $career->looking_for }}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
+                                   <p>Looking For : {{ $career->looking_for }} </p>
                                     <p>Available For : {{ $career->job_nature}}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
                                     <p>Expected Salary : {{ $career->exp_sallary}}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
                                     <p>Preferred Job Category : {{ $prefer_jobs->job_categories }}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
                                     <p>Preferred District : {{$prefer_jobs->job_location }}</p>
                                 </td>
                             </tr>
+
                         </tbody>
                     </table>
                 </td>
             </tr>
         </tbody>
     </table>
-    @endif
     <!-- Career and Application Information: -->
     <br><br>
-
-     @if(!empty($specials))
     <!-- Specialization: -->
     <table>
         <thead>
@@ -367,25 +337,19 @@
                         <tbody>
                              @foreach($specials as $value )
                             <tr>
-                                <td>
-                                    <p>{{ $value-> skill }}</p>
-                                </td>
-                                <td>
-                                    <p>{{ $value-> skill_description  }}</p>
-                                </td>
+                                <td>{{ $value-> skill }}</td>
+                                <td>{{ $value-> skill_description  }}</td>
                             </tr>
-
                             @endforeach
+
                         </tbody>
                     </table>
                 </td>
             </tr>
         </tbody>
     </table>
-    @endif
     <!-- Specialization end -->
     <br><br>
-      @if(!empty($languages))
     <!-- Language Profeciency: -->
     <table>
         <thead>
@@ -406,24 +370,22 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             <tr>
-                            <td>{{ $language->language }}</td>
-                            <td>{{ $language->reading }}</td>
-                            <td>{{ $language->writing }}</td>
-                            <td>{{ $language->speaking  }}</td>
+                               <td>{{ $language->language }}</td>
+                                <td>{{ $language->reading }}</td>
+                                <td>{{ $language->writing }}</td>
+                                <td>{{ $language->speaking  }}</td>
                             </tr>
+
                         </tbody>
                     </table>
                 </td>
             </tr>
         </tbody>
     </table>
-    @endif
     <!-- Language Profeciency end -->
     <br><br>
     <!-- Personal Details -->
-    @if($personaldetails == null)
     <table>
         <thead>
             <tr>
@@ -434,63 +396,39 @@
             <tr>
                 <td>
                     <table>
-                        <tbody>
+                        <thead>
                             <tr>
-                                <td><p>Father's Name : {{ $personaldetails->father_name }}</p></td>
+                                <td>
+                                   <p>Father's Name : {{ $personaldetails->father_name }} </p>
+                                    <p>Mother's Name : {{ $personaldetails->mother_name }}</p>
+                                    <p>Date of Birth : {{ $personaldetails->dob }} </p>
+                                    <p>Gender : {{ $personaldetails->gender  }}</p>
+                                    <p>Marital Status : {{ $personaldetails->maritial }}</p>
+                                    <p>Nationality : {{ $personaldetails->nationality }} </p>
+                                    <p>National Id No. : {{ $personaldetails->nid  }}</p>
+                                    <p>Religion : {{ $personaldetails->religion  }}</p>
+                                    <p>Current Location : {{ $address->present_add }} </p>
+                                </td>
                             </tr>
-                            <tr>
-                               <td> <p>Mother's Name : {{ $personaldetails->mother_name }}</p></td>
-                            </tr>
-                            <tr>
-                               <td> <p>Date of Birth : {{ $personaldetails->dob }}</p></td>
-                            </tr>
-                            <tr>
-                               <td> <p>Gender : {{ $personaldetails->gender  }}</p></td>
-                            </tr>
-                            <tr>
-                               <td> <p>Marital Status : {{ $personaldetails->maritial }}</p></td>
-                            </tr>
-                            <tr>
-                               <td> <p>Nationality : {{ $personaldetails->nationality }}</p></td>
-                            </tr>
-                            <tr>
-                               <td> <p>National Id No. : {{ $personaldetails->nid  }}</p></td>
-                            </tr>
-                            <tr>
-                               <td> <p>Religion : {{ $personaldetails->religion  }}</p></td>
-                            </tr>
-                            <tr>
-                               <td> <p>Current Location : {{ $address->present_add }} </p></td>
-                            </tr>
-                        </tbody>
+
+                        </thead>
                     </table>
                 </td>
             </tr>
         </tbody>
     </table>
-    @endif
     <!-- Personal Details end -->
     <br><br>
     <!-- Reference: -->
-     @if(!empty($reference))
-    <table>
+    <table class="table table-bordered">
         <thead>
             <tr>
-                <th><span class="title">References:</span></th>
+                <th scope="col"></th>
+                <th scope="col"> Reference: 01</th>
+                <th scope="col"> Reference: 02</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    <table class="border">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Reference: 01</th>
-                                <th>Reference: 02</th>
-                            </tr>
-                        </thead>
-                        <tbody>
             <tr>
                 <td>
                     <p>Name</p>
@@ -514,12 +452,7 @@
                 @endforeach
             </tr>
         </tbody>
-                    </table>
-                </td>
-            </tr>
-        </tbody>
     </table>
-    @endif
     <!-- Reference end -->
 </body>
 
