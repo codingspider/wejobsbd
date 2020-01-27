@@ -55,8 +55,8 @@ class ImageController extends Controller
 
     public function upload_resumes(Request $request){
 
-        request()->validate([
-            "resume" => "required|mimes:pdf|max:10000"
+      $request->validate([
+            'resume.*' => 'required|file|max:5000|mimes:pdf,docx,doc',
         ]);
 
         if ($files = $request->file('resume')) {

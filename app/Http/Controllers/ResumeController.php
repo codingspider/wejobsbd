@@ -546,7 +546,7 @@ class ResumeController extends Controller
     $languages = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('language')->get();
     $reference = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('ref_name')->get();
     $images = DB::table('resumes')->whereNotNull('photograph')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
-    $word_resume = DB::table('resumes')->whereNotNull('resume')->where('user_id', Auth::id())->first();
+    $word_resume = DB::table('resumes')->whereNotNull('resume')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
     $gender = DB::table('genders')->get();
 
     	return  view('view_resume', compact('data', 'personaldetails', 'address', 'career', 'prefer_jobs','career_summery','word_resume','education_level','training_title','certificate', 'employments', 'others_employments', 'specials', 'languages', 'reference', 'gender', 'images'));
