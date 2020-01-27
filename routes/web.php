@@ -36,6 +36,7 @@ Route::get('/dashboard/special/delete/{id}', 'TestController@special_details_del
 Route::get('/dashboard/others_employ/delete/{id}', 'TestController@special_details_delete');
 Route::get('/dashboard/language/delete/{id}', 'TestController@language_details_delete');
 Route::get('/dashboard/refer/delete/{id}', 'TestController@refer_details_delete');
+Route::post('update/logo/submit/form', 'SettingsController@logo_update');
 
 
 
@@ -221,6 +222,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
             Route::get('gateways', 'SettingsController@GatewaySettings')->name('gateways_settings');
             Route::get('pricing', 'SettingsController@PricingSettings')->name('pricing_settings');
             Route::post('pricing', 'SettingsController@PricingSave');
+            Route::get('logo/edit', 'SettingsController@create_logo');
 
             //Save settings / options
             Route::post('save-settings', ['as'=>'save_settings', 'uses' => 'SettingsController@update']);

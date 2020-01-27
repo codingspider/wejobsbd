@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Option;
 use App\Pricing;
 use Illuminate\Http\Request;
-
+use DB;
+use Image;
 class SettingsController extends Controller
 {
     public function GeneralSettings(){
@@ -50,5 +51,35 @@ class SettingsController extends Controller
         return redirect()->back()->with('success', trans('app.settings_saved_msg'));
     }
 
+    public function create_logo(){
+        return view('logo_change');
+    }
 
+    public function logo_update(Request $request){
+
+        $this->validate($request, [
+              'logo'  => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+             ]);
+
+             $image = $request->file('logo');
+
+             $image_name = time() . '.' . $image->getClientOriginalExtension();
+
+             $destinationPath = public_path('/uploads');
+
+             $resize_image = Image::make($image->getRealPath());
+
+             $resize_image->resize(150, 150, function($constraint){
+              $constraint->aspectRatio();
+             })->save($destinationPath . '/' . $image_name);
+
+             $image->move($destinationPath, $image_name);
+
+    	DB::table('logo')->insert([
+    		'name' =>$image_name,
+
+    	]);
+
+            return back()->with('success', 'Logo uploaded succesfully ');
+        }
 }

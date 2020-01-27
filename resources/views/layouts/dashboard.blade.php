@@ -113,12 +113,12 @@ $user = Auth::user();
                                     <span class="title">Edit Resume</span>
                                 </a>
                             </li>
-                            <li class="">
+                            <!-- <li class="">
                                 <a href="{{URL::to('email/resume')}}" class="list-group-item-action active">
                                     <span class="sidebar-icon"><i class="la la-list-alt"></i> </span>
                                     <span class="title">Email Resume</span>
                                 </a>
-                            </li>
+                            </li> -->
                             @endif
 
 
@@ -231,6 +231,7 @@ $user = Auth::user();
 
                                 <ul class="dropdown-menu" style="display: none;">
                                     <li><a class="sidebar-link" href="{{route('general_settings')}}">@lang('app.general_settings')</a></li>
+                                    <li><a class="sidebar-link" href="{{ URL::to('dashboard/settings/logo/edit') }}">Logo </a></li>
                                     <li><a class="sidebar-link" href="{{route('pricing_settings')}}">@lang('app.pricing')</a></li>
                                     <li><a class="sidebar-link" href="{{route('gateways_settings')}}">@lang('app.gateways')</a></li>
                                 </ul>
@@ -309,7 +310,7 @@ $user = Auth::user();
                         </div>
 
                         <div class="dashboard-footer mb-3">
-                        <a href="{{ URL::to('/')}}" target="_blank">Job Portal </a> Version {{config('app.version')}}
+                        <a href="{{ URL::to('/')}}" target="_blank">Optima Solutions </a> Version {{config('app.version')}}
                         </div>
                     </div>
 

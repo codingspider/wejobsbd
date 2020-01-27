@@ -25,14 +25,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group row {{ $errors->has('site_logo')? 'has-error':'' }}">
-                        <label for="site_logo" class="col-sm-4 control-label">@lang('app.logo')</label>
-                        <div class="col-sm-8">
-                            <input type="file" class="form-control" id="site_logo" name="site_logo">
-                           
-                        </div>
-                    </div>
-
                     <div class="form-group row {{ $errors->has('email_address')? 'has-error':'' }}">
                         <label for="email_address" class="col-sm-4 control-label">@lang('app.email_address')</label>
                         <div class="col-sm-8">
@@ -99,7 +91,7 @@
                                 <input type="text" value="{{ get_option('time_format_custom') }}" id="time_format_custom" name="time_format_custom" />
                                 <span>example: {{ date(get_option('time_format_custom')) }}</span>
                             </fieldset>
-                            <p><a href="http://php.net/manual/en/function.date.php" target="_blank">@lang('app.date_time_read_more')</a> </p>
+
                         </div>
                     </div>
 

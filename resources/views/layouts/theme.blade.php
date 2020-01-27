@@ -25,11 +25,9 @@
         var page_data = {!! pageJsonData() !!};
         /* ]]> */
     </script>
-
-
-
-
-
+@php
+$logo = DB::table('logo')->orderBy('id','desc')->first();
+@endphp
 
 </head>
 <body class="{{request()->routeIs('home') ? ' home ' : ''}} {{request()->routeIs('job_view') ? ' job-view-page ' : ''}}">
@@ -37,7 +35,7 @@
     <nav class="navbar navbar-expand-md navbar-light navbar-laravel {{request()->routeIs('home') ? 'transparent-navbar' : ''}}">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{asset('http://www.thejobsportal.co.uk/assets/img/Logo@2x.png')}}" />
+                <img src="{{asset('uploads/'.$logo->name )}}" />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
@@ -86,7 +84,7 @@
 
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <i class="la la-user"></i> {{ Auth::user()->name }}
-                                <span class="badge badge-warning"><i class="la la-briefcase"></i>{{auth()->user()->premium_jobs_balance}}</span>
+                                <span class="badge badge-warning"><i class="la la-dollar"></i>{{auth()->user()->premium_jobs_balance}}</span>
                                 <span class="caret"></span>
                             </a>
 
@@ -123,7 +121,7 @@
 
                     <div class="footer-logo-wrap mb-3">
                         <a class="navbar-brand" href="{{ url('/') }}">
-                            <img src="{{asset('http://www.thejobsportal.co.uk/assets/img/Logo@2x.png')}}" />
+                            <img src="{{asset('uploads/'.$logo->name )}}" />
                         </a>
                     </div>
 
