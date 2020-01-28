@@ -20,9 +20,10 @@ Home Page
     border-bottom: none;
 } */
 .transparent-navbar{
-    background-color: transparent;
+    background-color: #2f64a3;
     /* padding: 20px 0; */
     z-index: 9;
+    color: #cccccc;
 }
 .navbar-brand{
     padding: 0;

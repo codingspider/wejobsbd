@@ -32,7 +32,7 @@ $logo = DB::table('logo')->orderBy('id','desc')->first();
 </head>
 <body class="{{request()->routeIs('home') ? ' home ' : ''}} {{request()->routeIs('job_view') ? ' job-view-page ' : ''}}">
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light navbar-laravel {{request()->routeIs('home') ? 'transparent-navbar' : ''}}">
+    <nav style="background-color:#2f64a3;" class="navbar navbar-expand-md navbar-light navbar-laravel {{request()->routeIs('home') ? 'transparent-navbar' : ''}}">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="{{asset('uploads/'.$logo->name )}}" />

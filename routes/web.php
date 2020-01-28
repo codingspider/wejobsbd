@@ -37,6 +37,7 @@ Route::get('/dashboard/others_employ/delete/{id}', 'TestController@special_detai
 Route::get('/dashboard/language/delete/{id}', 'TestController@language_details_delete');
 Route::get('/dashboard/refer/delete/{id}', 'TestController@refer_details_delete');
 Route::post('update/logo/submit/form', 'SettingsController@logo_update');
+Route::post('upload/bd/jobs/resumes', 'BdJobsController@convert_doc');
 
 
 

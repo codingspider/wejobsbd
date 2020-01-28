@@ -12,8 +12,12 @@
 <button type="button" data-toggle="modal" data-target="#exampleModal">
     Upload Your CV
 </button>
+<button type="button" data-toggle="modal" data-target="#bdjosbcv">
+    Upload Your Bdjobs CV
+</button>
 
 @include('modal.resume_upload')
+@include('modal.bdjobscv')
 
 <div class="content" id="page-content">
 <div class="col-md-12" >

@@ -2,7 +2,7 @@
 
 @section('content')
 <br>
-<div class="home-hero-section container">
+<div style="background-image: url({{ asset('images/env.jpg') }}); background-repeat: no-repeat; background-size: 1200px 500px;" class="home-hero-section container">
     <div class="job-search-bar">
         <div class="container">
             <div class="row">
@@ -32,27 +32,30 @@
 <br>
 
 @if($categories->count())
-<div class="home-categories-wrap bg-white pb-5 pt-5">
+<div class="home-categories-wrap bg-white">
     <div class="container">
-        <div class="row">
+    <div class="row">
             <div class="col-md-12">
-                <h4 class="mb-3">@lang('app.browse_category')</h4>
+                <h4 class="mb-3">@lang('app.categories')</h4>
             </div>
         </div>
-
-        <div class="row">
-
-            @foreach($categories as $category)
-            <div class="col-md-4">
-
-                <p>
-                    <a href="{{route('jobs_listing', ['category' => $category->id])}}" class="category-link"><i class="la la-th-large"></i> {{$category->category_name}} <span class="text-muted">({{$category->job_count}})</span> </a>
-                </p>
-
+        <div class="col-md-12">
+            <div class="row">
+            <div class="col-md-10">
+                 <div class="row">
+                    @foreach($categories as $category)
+                    <div class="col-md-3">
+                        <p>
+                            <a href="{{route('jobs_listing', ['category' => $category->id])}}" class="category-link"><i class="la la-th-large"></i> {{$category->category_name}} <span class="text-muted">({{$category->job_count}})</span> </a>
+                        </p>
+                    </div>
+                    @endforeach
+                </div>
             </div>
-
-            @endforeach
-
+            <div class="col-md-2">
+                <img  alt="W3Schools" src="{{ asset('images/ads.jpg') }}" width="150" height="300">
+            </div>
+            </div>
         </div>
 
     </div>
@@ -74,11 +77,11 @@
 
         <div class="row">
             @foreach($premium_jobs as $job)
-            <div class="col-md-4 mb-3">
+            <div class="col-md-3 mb-3">
                 <div class="premium-job-box p-3 bg-white box-shadow">
 
                     <div class="row">
-                        <div class="col-md-4 col-sm-6">
+                        <div class="col-md-3 col-sm-4">
                             <div class="premium-job-logo">
                                 <a href="{{route('jobs_by_employer', $job->employer->company_slug)}}">
                                     <img src="{{$job->employer->logo_url}}" class="img-fluid" />
@@ -86,7 +89,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-8 col-sm-6">
+                        <div class="col-md-9 col-sm-9">
 
                             <p class="job-title">
                                 <a href="{{route('job_view', $job->job_slug)}}">{!! $job->job_title !!}</a>
@@ -97,7 +100,7 @@
                                     {{$job->employer->company}}
                                 </a>
                             </p>
-
+<!--
                             <p class="text-muted m-0">
                                 <i class="la la-map-marker"></i>
                                 @if($job->city_name)
@@ -109,7 +112,7 @@
                                 @if($job->state_name)
                                 {!! $job->country_name !!}
                                 @endif
-                            </p>
+                            </p> -->
                         </div>
                     </div>
                 </div>
@@ -118,7 +121,10 @@
             @endforeach
         </div>
     </div>
-
+<div class="text-center">
+    <img border="0" alt="W3Schools" src="{{ asset('images/images.png') }}" width="1000" height="150">
+</div>
+<br>
 </div>
 @endif
 
@@ -171,7 +177,7 @@
 
 
 <br>
-<div class="new-registration-page bg-white pb-5 pt-5">
+<div style="background-color:#2f64a3;" class="new-registration-page bg-white pb-5 pt-5">
     <div class="container">
         <div class="row">
 

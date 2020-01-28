@@ -361,6 +361,7 @@
                     </div>
                 </div>
 
+
                 <div class="widget-box bg-white p-3 mb-3 box-shadow">
                     <div class="modern-social-share-wrap">
                         <a href="#" class="btn btn-primary share s_facebook"><i class="la la-facebook"></i> </a>
@@ -369,7 +370,17 @@
                         <a href="#" class="btn btn-primary share s_linkedin"><i class="la la-linkedin"></i> </a>
                     </div>
                 </div>
-
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- right side ads square -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2055062099284426"
+     data-ad-slot="5681566665"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
             </div>
         </div>
