@@ -28,24 +28,14 @@ class ResumeController extends Controller
         $data['mobile2'] = $request->mobile2;
         $data['email'] = $request->email;
         $data['email2'] = $request->email2;
-
         $data['user_id'] = Auth::id() ;
-
-    	DB::table('resumes')->insert($data);
-
+    	DB::table('personal_details')->insert($data);
     	return back()->with('succes', 'Personal details has been saved. ');
-
     }
 
-
     public function personal_details_edit (Request $request){
-
-
-
         $id = $request->id;
-
-
-        DB::table('resumes')->where('id', $id)->update([
+        DB::table('personal_details')->where('id', $id)->update([
             'first_name'=>$request->first_name,
             'last_name'=>$request->last_name,
             'father_name'=>$request->father_name,
@@ -62,17 +52,13 @@ class ResumeController extends Controller
             'mobile2'=>$request->mobile2,
             'email'=>$request->email,
             'email2'=>$request->email2,
-
         ]);
          return back()->with('success', 'Personal  Details has been updated. ');
-
-
     }
 
     public function address_details_edit (Request $request){
         $id = $request->id;
-
-        DB::table('resumes')->where('id', $id)->update([
+        DB::table('address_details')->where('id', $id)->update([
             'present_add'=>$request->present_add,
             'permanent_add'=>$request->permanent_add,
 
@@ -82,8 +68,7 @@ class ResumeController extends Controller
 
     public function career_details_edit (Request $request){
         $id = $request->id;
-
-        DB::table('resumes')->where('id', $id)->update([
+        DB::table('career_details')->where('id', $id)->update([
             'present_sallary' =>$request->present_sallary,
             'looking_for' =>$request->looking_for,
             'job_nature' =>$request->job_nature,
@@ -99,7 +84,7 @@ class ResumeController extends Controller
 
         $id = $request->id;
 
-        DB::table('resumes')->where('id', $id)->update([
+        DB::table('prefer_job_details')->where('id', $id)->update([
             'job_categories' => $request->job_categories,
             'job_location' =>$request->job_location,
 
@@ -111,13 +96,11 @@ class ResumeController extends Controller
 
     public function address_details(Request $request){
 
-    	DB::table('resumes')->insert([
+    	DB::table('address_details')->insert([
     		'present_add' =>$request->present_add,
     		'permanent_add' =>$request->permanent_add,
             'user_id' =>Auth::id()
-
     	]);
-
     	return back()->with('success', 'Address Details has been added. ');
 
     }
@@ -125,7 +108,7 @@ class ResumeController extends Controller
     public function carrer_details(Request $request){
     	$id = Auth::id() ;
 
-    	DB::table('resumes')->insert([
+    	DB::table('career_details')->insert([
     		'present_sallary' =>$request->present_sallary,
     		'looking_for' =>$request->looking_for,
     		'job_nature' =>$request->job_nature,
@@ -140,7 +123,7 @@ class ResumeController extends Controller
 
     public function preffer_job_location (Request $request){
 
-    	DB::table('resumes')->insert([
+    	DB::table('prefer_job_details')->insert([
     		'job_categories' =>$request->job_categories,
     		'job_location' =>$request->job_location,
             'user_id' => Auth::id()
@@ -151,7 +134,7 @@ class ResumeController extends Controller
 
     public function relevant_information (Request $request){
 
-    	DB::table('resumes')->insert([
+    	DB::table('other_details')->insert([
     		'summery' =>$request->career_summery,
     		'qualification' =>$request->special_qualification,
             'keywords' =>$request->keyword,
@@ -164,7 +147,7 @@ class ResumeController extends Controller
 
     public function other_relavamt_information_update (Request $request){
         $id = $request->id;
-    	DB::table('resumes')->where('id', $id)->update([
+    	DB::table('other_details')->where('id', $id)->update([
     		'summery' =>$request->career_summery,
     		'qualification' =>$request->special_qualification,
             'keywords' =>$request->keyword,
@@ -172,8 +155,6 @@ class ResumeController extends Controller
     	return back()->with('success', 'Other relavant Details has been added. ');
 
     }
-
-
 
     public function academic_details (Request $request){
 
@@ -187,9 +168,7 @@ class ResumeController extends Controller
         $institutes =$request->institute;
         $years =$request->year;
 
-    	DB::table('resumes')->insert([
-
-
+    	DB::table('academic_details')->insert([
     		'achievement' => $achievements,
             'education_level' => $education_levels,
             'result' => $results,
@@ -217,9 +196,7 @@ class ResumeController extends Controller
         $institutes =$request->institute;
         $years =$request->year;
 
-        DB::table('resumes')->where('id', $request->id )->update([
-
-
+        DB::table('academic_details')->where('id', $request->id )->update([
             'achievement' => $achievements,
             'education_level' => $education_levels,
             'result' => $results,
@@ -244,15 +221,13 @@ class ResumeController extends Controller
          $training_periods =$request->training_period;
          $training_locates =$request->training_locate;
          $training_years =$request->training_year;
-
-
-        DB::table('resumes2')->insert([
+        DB::table('training__details')->insert([
             'training_title' =>$training_titles,
             'training_country' =>$training_countrys,
             'training_topics' =>$training_topicss,
-            'training_inst' =>$training_insts,
-            'training_period' =>$training_periods,
-            'training_locate' =>$training_locates,
+            'training_institute' =>$training_insts,
+            'training_duration' =>$training_periods,
+            'training_location' =>$training_locates,
             'training_year' =>$training_years,
             'user_id' =>Auth::id()
 
@@ -271,9 +246,7 @@ class ResumeController extends Controller
          $training_locates =$request->training_locate;
          $training_years =$request->training_year;
          $id =$request->id;
-
-
-        DB::table('resumes2')->where('id', $id)->update([
+        DB::table('training__details')->where('id', $id)->update([
             'training_title' =>$training_titles,
             'training_country' =>$training_countrys,
             'training_topics' =>$training_topicss,
@@ -285,23 +258,35 @@ class ResumeController extends Controller
         ]);
 
        return back()->with('success', 'Training Details has been Updated. ');
-
     }
 
 
     public function certificatte1_details2 (Request $request){
-
         $certicate1s =$request->certificate;
         $certificate_location =$request->certificate_location2;
         $certificate_location_inst =$request->certificate_location_inst;
         $certificate_period =$request->certificate_period;
-
-
-        DB::table('resumes2')->insert([
-
-            'certificate' =>$certicate1s,
+        DB::table('professional_details')->insert([
+            'certicate' =>$certicate1s,
             'certificate_location' =>$certificate_location,
-            'certificate_location_inst' =>$certificate_location_inst,
+            'certificate_institiute' =>$certificate_location_inst,
+            'certificate_period' =>$certificate_period,
+            'user_id'=> Auth::id()
+        ]);
+
+      return back()->with('success', 'certificate Details has been added. ');
+
+    }
+
+    public function certificatte1_update (Request $request){
+        $certicate1s =$request->certificate;
+        $certificate_location =$request->certificate_location2;
+        $certificate_location_inst =$request->certificate_location_inst;
+        $certificate_period =$request->certificate_period;
+        DB::table('professional_details')->where('user_id', Auth::id())->update([
+            'certicate' =>$certicate1s,
+            'certificate_location' =>$certificate_location,
+            'certificate_institiute' =>$certificate_location_inst,
             'certificate_period' =>$certificate_period,
             'user_id'=> Auth::id()
         ]);
@@ -320,7 +305,7 @@ class ResumeController extends Controller
          $designations =$request->designation;
          $emp_periods =$request->emp_period;
 
-    	DB::table('resumes2')->insert([
+    	DB::table('employment_details')->insert([
     		'com_name' =>$com_names,
     		'responsibilities' =>$responsibilitiess,
     		'com_business' =>$com_businesss,
@@ -345,7 +330,7 @@ class ResumeController extends Controller
          $emp_periods =$request->emp_period;
          $id =$request->id;
 
-        DB::table('resumes2')->where('id', $id)->update([
+        DB::table('employment_details')->where('id', $id)->update([
             'com_name' =>$com_names,
             'responsibilities' =>$responsibilitiess,
             'com_business' =>$com_businesss,
@@ -407,19 +392,29 @@ class ResumeController extends Controller
         return back()->with('success', 'Other Details has been added.');
     }
 
-    public function others_details_edit (Request $request){
+    // public function others_details_edit (Request $request){
 
+    //     $id = $request->id;
+    //     $vehicleString = implode(",", $request->get('how_did_you_learn'));
 
+    //     $status = DB::table(' special_details')->where('id', $id)->update([
+    //     'skill' => $request->get('skill'),
+    //     'skill_description' => $request->skill_description,
+    //     'how_did_you_learn' => $vehicleString
+    //     ]);
+    //     return back()->with('success', 'Other Details has been updated.');
+    // }
 
-        $id = $request->id;
+    public function specail_details (Request $request){
+
         $vehicleString = implode(",", $request->get('how_did_you_learn'));
-
-        $status = DB::table('resumes2')->where('id', $id)->update([
+        $status = DB::table('special_details')->insert([
         'skill' => $request->get('skill'),
-        'skill_description' => $request->skill_description,
-        'how_did_you_learn' => $vehicleString
+        'description' => $request->skill_description,
+        'how_did_you_learn' => $vehicleString,
+        'user_id' => Auth::id(),
         ]);
-        return back()->with('success', 'Other Details has been updated.');
+        return back()->with('success', 'Special Details has been added.');
     }
 
 
@@ -432,7 +427,25 @@ class ResumeController extends Controller
         $writings =$request->writing;
         $speakings =$request->speaking;
 
-        DB::table('resumes2')->insert([
+        DB::table('language_details')->insert([
+            'language' =>$languages,
+            'reading' =>$readings,
+            'writing' =>$writings,
+            'speaking' =>$speakings,
+            'user_id' => Auth::id()
+
+        ]);
+        return back()->with('success', 'Language Details has been updated.');
+
+    }
+    public function others_language_edit (Request $request){
+
+        $languages =$request->language;
+        $readings =$request->reading;
+        $writings =$request->writing;
+        $speakings =$request->speaking;
+
+        DB::table('language_details')->where('user_id', Auth::id())->update([
             'language' =>$languages,
             'reading' =>$readings,
             'writing' =>$writings,
@@ -455,7 +468,7 @@ class ResumeController extends Controller
         $ref_name = $request->ref_name;
 
 
-        DB::table('resumes')->insert([
+        DB::table('refernce_details')->insert([
             'ref_designation' =>$ref_designation,
             'ref_organization' =>$ref_organization,
             'ref_mobile' =>$ref_mobile,
@@ -532,20 +545,20 @@ class ResumeController extends Controller
     public function view_resume(){
 
     $id =Auth::id();
-    $personaldetails = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('first_name')->first();
-    $address = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('present_add')->orderBy('id', 'desc')->first();
-    $career = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('present_sallary')->orderBy('id', 'desc')->first();
-    $prefer_jobs = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('job_location')->orderBy('id', 'desc')->first();
-    $career_summery = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('summery')->orderBy('id', 'desc')->first();
-    $education_level = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('education_level')->get();
-    $training_title = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('training_title')->get();
-    $certificate = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('certificate')->get();
-    $employments = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('com_name')->get();
+    $personaldetails = DB::table('personal_details')->where('user_id', Auth::id())->first();
+    $address = DB::table('address_details')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+    $career = DB::table('career_details')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+    $prefer_jobs = DB::table('prefer_job_details')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+    $career_summery = DB::table('other_details')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+    $education_level = DB::table('academic_details')->where('user_id', Auth::id())->get();
+    $training_title = DB::table('training__details')->where('user_id', Auth::id())->get();
+    $certificate = DB::table('professional_details')->where('user_id', Auth::id())->get();
+    $employments = DB::table('employment_details')->where('user_id', Auth::id())->get();
     $others_employments = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('batch')->get();
-    $specials = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('skill')->get();
-    $languages = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('language')->get();
-    $reference = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('ref_name')->get();
-    $images = DB::table('resumes')->whereNotNull('photograph')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+    $specials = DB::table('special_details')->where('user_id', Auth::id())->get();
+    $languages = DB::table('language_details')->where('user_id', Auth::id())->get();
+    $reference = DB::table('refernce_details')->where('user_id', Auth::id())->get();
+    $images = DB::table('photograph')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
     $word_resume = DB::table('resumes')->whereNotNull('resume')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
     $gender = DB::table('genders')->get();
 

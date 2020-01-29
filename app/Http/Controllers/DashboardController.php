@@ -34,20 +34,22 @@ class DashboardController extends Controller
 
     public function import (){
 
-        $personaldetails = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('first_name')->first();
-        $address = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('present_add')->first();
-        $career = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('present_sallary')->first();
-        $prefer_jobs = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('job_location')->first();
-        $career_summery = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('summery')->first();
-        $education_level = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('education_level')->get();
-        $training_title = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('training_title')->get();
-        $certificate = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('certificate')->get();
-        $employments = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('com_name')->get();
-        $others_employments = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('batch')->get();
-        $specials = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('skill')->get();
-        $languages = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('language')->get();
-        $reference = DB::table('resumes')->where('user_id', Auth::id())->whereNotNull('ref_name')->get();
-        $gender = DB::table('genders')->get();
+    $personaldetails = DB::table('personal_details')->where('user_id', Auth::id())->first();
+    $address = DB::table('address_details')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+    $career = DB::table('career_details')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+    $prefer_jobs = DB::table('prefer_job_details')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+    $career_summery = DB::table('other_details')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+    $education_level = DB::table('academic_details')->where('user_id', Auth::id())->get();
+    $training_title = DB::table('training__details')->where('user_id', Auth::id())->get();
+    $certificate = DB::table('professional_details')->where('user_id', Auth::id())->get();
+    $employments = DB::table('employment_details')->where('user_id', Auth::id())->get();
+    $others_employments = DB::table('resumes2')->where('user_id', Auth::id())->whereNotNull('batch')->get();
+    $specials = DB::table('special_details')->where('user_id', Auth::id())->get();
+    $languages = DB::table('language_details')->where('user_id', Auth::id())->get();
+    $reference = DB::table('refernce_details')->where('user_id', Auth::id())->get();
+    $images = DB::table('photograph')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+    $word_resume = DB::table('resumes')->whereNotNull('resume')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+    $gender = DB::table('genders')->get();
 
         return view('import_resume', compact('personaldetails', 'address', 'career', 'prefer_jobs','career_summery','education_level','training_title','certificate', 'employments', 'others_employments', 'specials', 'languages', 'reference', 'gender'));
 

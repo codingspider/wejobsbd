@@ -170,9 +170,9 @@
                 <td>{{ $training->training_country  }} </td>
                 <td>{{ $training->training_topics }} </td>
                 <td>{{ $training->training_year }}</td>
-                <td>{{ $training->training_inst }} </td>
-                <td>{{ $training->training_period  }} </td>
-                <td>{{ $training->training_locate }} </td>
+                <td>{{ $training->training_institute }} </td>
+                <td>{{ $training->training_duration  }} </td>
+                <td>{{ $training->training_location }} </td>
             </tr>
             @endforeach
         </tbody>
@@ -236,11 +236,10 @@
         <tbody>
             @foreach($specials as $value )
             <tr>
-                <td>{{ $value-> skill }}</td>
-                <td>{{ $value-> skill_description  }}</td>
+                <td>{{ $value->skill }}</td>
+                <td>{{ $value->description  }}</td>
             </tr>
             @endforeach
-
         </tbody>
     </table>
 

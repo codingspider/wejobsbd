@@ -19,7 +19,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="inputEmail4">Skill Description </label>
-                <textarea rows="4" cols="60" name="skill_description">{{ $special->skill_description }}</textarea>
+                <textarea rows="4" cols="60" name="skill_description">{{ $special->description }}</textarea>
             </div>
             <input type="hidden" name="id" value="{{ $special->id }}">
         </div>

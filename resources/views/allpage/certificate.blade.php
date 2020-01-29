@@ -4,7 +4,7 @@
              <div class="form-row">
                   <div class="form-group col-md-6">
                       <label for="inputEmail4">Certificate</label>
-                      <input type="text" onClick="this.setSelectionRange(0, this.value.length)" class="form-control" value="{{$certi->certificate }}" name="certificate" id="certificate">
+                      <input type="text" onClick="this.setSelectionRange(0, this.value.length)" class="form-control" value="{{$certi->certicate }}" name="certificate" id="certificate">
                   </div>
                   <div class="form-group col-md-6">
                       <label for="inputPassword4">Certificate Location </label>
@@ -14,7 +14,7 @@
               <div class="form-row">
                   <div class="form-group col-md-6">
                       <label for="inputEmail4">Certificate Institiute </label>
-                      <input type="text" onClick="this.setSelectionRange(0, this.value.length)" class="form-control" value="{{$certi->certificate_location_inst }}" name="certificate_location_inst" id="certificate_location_inst">
+                      <input type="text" onClick="this.setSelectionRange(0, this.value.length)" class="form-control" value="{{$certi->certificate_institiute }}" name="certificate_location_inst" id="certificate_location_inst">
                   </div>
                   <div class="form-group col-md-6">
                       <label for="inputPassword4">Certificate Period </label>

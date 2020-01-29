@@ -33,7 +33,7 @@ class ImageController extends Controller
 
             $image->move($destinationPath, $image_name);
 
-            DB::table('resumes')->insert([
+            DB::table('photograph')->insert([
                 'photograph' =>$image_name,
                 'user_id' => Auth::id()
 

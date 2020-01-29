@@ -244,7 +244,7 @@
                      @forelse ($employments as $employment)
                          @include('allpage.employment')
                      @empty
-                        <h3>You did not added your academic details. </h3>
+                        <h3>You did not added your employment details. </h3>
                      @endforelse
 
                  </div>
@@ -333,7 +333,7 @@
                      @forelse ($languages as $language)
                          @include('allpage.language')
                      @empty
-                        <h3>You did not added your academic details. </h3>
+                        <h3>You did not added your language details. </h3>
                      @endforelse
 
                  </div>

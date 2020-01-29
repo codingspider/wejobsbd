@@ -1,4 +1,4 @@
-<form action="{{ URL::to('/dashboard/others/information/language') }}" method="POST">
+<form action="{{ URL::to('/dashboard/language/update') }}" method="POST">
             {{ csrf_field() }}
                  <div class="form-row">
                   <div class="form-group col-md-6">
@@ -21,7 +21,7 @@
                       <div class="form-group">
                           <label for="sel1">Speaking </label>
                           <input type="text" onClick="this.setSelectionRange(0, this.value.length)" class="form-control" id="speaking" name="speaking" value="{{ $language->speaking }}" >
-                      </div> 
+                      </div>
                   </div>
               </div>
             <div class="form-row">

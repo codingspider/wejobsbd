@@ -24,17 +24,17 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Training Institute </label>
-                    <input type="text" onClick="this.setSelectionRange(0, this.value.length)" class="form-control" name="training_inst" id="training_inst" value="{{ $training->training_inst}}">
+                    <input type="text" onClick="this.setSelectionRange(0, this.value.length)" class="form-control" name="training_inst" id="training_inst" value="{{ $training->training_institute}}">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword4">Training Duration </label>
-                    <input type="text" onClick="this.setSelectionRange(0, this.value.length)" class="form-control" name="training_period" id="training_period" value="{{ $training->training_period }}">
+                    <input type="text" onClick="this.setSelectionRange(0, this.value.length)" class="form-control" name="training_period" id="training_period" value="{{ $training->training_duration }}">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail4"> Training Location </label>
-                    <input type="text" onClick="this.setSelectionRange(0, this.value.length)" class="form-control" name="training_locate" id="training_locate" value="{{ $training->training_locate}}">
+                    <input type="text" onClick="this.setSelectionRange(0, this.value.length)" class="form-control" name="training_locate" id="training_locate" value="{{ $training->training_location}}">
                     <br>
                   <button type="submit" class="btn btn-success">Submit</button>
                   <button class="delete btn-danger" onclick="window.location.href = '{{ URL::to('/dashboard/training/delete'. $training->id )}}'" type="button" style="margin-left:16px;" >Delete Record</button>
@@ -42,7 +42,7 @@
 
             </div>
             <input type="hidden" name="id" value="{{ $training->id }}">
-          
+
             </form>
   <hr><br>
 

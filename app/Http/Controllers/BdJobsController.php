@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 error_reporting(0);
 
 use Illuminate\Http\Request;
-
-
+use DB;
+use Auth;
 class BdJobsController extends Controller
 {
-
 
 public function convertToText($filename)
 {
@@ -58,7 +57,16 @@ public function searchForText($text, $array)
 
 public function convert_doc(Request $request )
 {
-    $filename = $request->resume;
+     if ($files = $request->file('resume')) {
+
+            $image = $request->file('resume');
+
+            $image_name = time() . '.' . $image->getClientOriginalExtension();
+
+            $destinationPath = public_path('/uploads');
+
+            $filename = $image->move($destinationPath, $image_name);
+        }
 
     $text = $this->convertToText($filename);
 
@@ -181,15 +189,7 @@ public function convert_doc(Request $request )
         } elseif ($next > $key) {
             foreach ($value as $val) {
                 if (
-                    $val != '' &&
-                    $val != ':' &&
-                    $val != 1 &&
-                    $val != 2 &&
-                    $val != 3 &&
-                    $val != 4 &&
-                    $val != 5 &&
-                    $val != 6 &&
-                    $val != '-'
+                    $val != ':'
                 ) {
                     $little_array[$temp][] = $val;
                 }
@@ -206,19 +206,219 @@ public function convert_doc(Request $request )
 
     $mainArray = array_merge($mainArray, $little_array);
 
-    dd ($mainArray);
+    //  dd($mainArray);
+
+    // academic details from bdjobs
+    $existdata_academic = DB::table('academic_details')
+            ->where('user_id', Auth::id())
+            ->delete();
+
+        $academic = $mainArray['Academic Qualification:'];
+        $academic_arr = array();
+        $count = 0;
+         for($i = 7; $i < count($academic); $i++){
+
+            if($i % 7 == 0){
+                $temp = $count++;
+            }
+                $academic_arr[$temp][] = $academic[$i];
+
+         }
+        // dd($academic_arr);
+
+         foreach ($academic_arr as $key => $acade) {
+            DB::table('academic_details')->insert([
+                'education_level' => $acade[0],
+                'major_group' => $acade[1],
+                'Institute' => $acade[2],
+                'result' => $acade[3],
+                'passing_year' => $acade[4],
+                'duration' => $acade[5],
+                'achievement' => $acade[6],
+                'exam_degree' => '',
+                'education_board' => '',
+                'user_id' => Auth::id()
+                ]);
+         }
+    // end academic details from bdjobs
+
+    // Employment History details from bdjobs
+    $existdata_academic = DB::table('employment_details')
+            ->where('user_id', Auth::id())
+            ->delete();
+         $employment = $mainArray['Employment History:'];
+        $employment_arr = array();
+        $count = 0;
+         for($i = 4; $i < count($employment); $i++){
+
+            if($i % 4 == 0){
+                $temp = $count++;
+            }
+                $employment_arr[$temp][] = $employment[$i];
+
+         }
+        //  dd($employment_arr);
+
+         foreach ($employment_arr as $key => $employ) {
+            DB::table('employment_details')->insert([
+                'com_name' => $employ[0],
+                'emp_period' => $employ[1],
+                'responsibilities' => $employ[2],
+                'com_loaction' => $employ[3],
+                'com_business' => $employ[4],
+                'designation' => $employ[5],
+                'user_id' => Auth::id()
+                ]);
+         }
+    // end academic details from bdjobs
+
+    // Training Summary details from bdjobs
+    $existdata_academic = DB::table('training__details')
+            ->where('user_id', Auth::id())
+            ->delete();
+
+        $training = $mainArray['Training Summary:'];
+        $training_arr = array();
+        $count = 0;
+         for($i = 7; $i < count($training); $i++){
+
+            if($i % 7 == 0){
+                $temp = $count++;
+            }
+                $training_arr[$temp][] = $training[$i];
+
+         }
+        // dd($training_arr);
+
+         foreach ($training_arr as $key => $training) {
+            DB::table('training__details')->insert([
+                'training_title' => $training[0],
+                'training_topics' => $training[1],
+                'training_institute' => $training[2],
+                'training_country' => $training[3],
+                'training_location' => $training[4],
+                'training_year' => $training[5],
+                'training_duration' => $training[6],
+                'user_id' => Auth::id()
+                ]);
+         }
+    // end academic details from bdjobs
+
+    // Professional details from bdjobs
+    $existdata_academic = DB::table('professional_details')
+            ->where('user_id', Auth::id())
+            ->delete();
+
+        $professional = $mainArray['Professional Qualification:'];
+        $professional_arr = array();
+        $count = 0;
+         for($i = 5; $i < count($professional); $i++){
+
+            if($i % 5 == 0){
+                $temp = $count++;
+            }
+                $professional_arr[$temp][] = $professional[$i];
+
+         }
+        // dd($professional_arr);
+
+         foreach ($professional_arr as $key => $profe) {
+            DB::table('professional_details')->insert([
+                'certicate' => $profe[0],
+                'certificate_institiute' => $profe[2],
+                'certificate_location' => $profe[1],
+                'form_date' => $profe[4],
+                'to_date' => $profe[5],
+                'user_id' => Auth::id()
+                ]);
+         }
+    // end academic details from bdjobs
+
+    // Career and Application Information from bdjobs
+    $existdata_academic = DB::table('career_details')
+            ->where('user_id', Auth::id())
+            ->delete();
+
+        $preffer = $mainArray['Career and Application Information:'];
+
+        $preffer_arr = array();
+        $count = 0;
+         for($i = 1; $i < count($preffer); $i+=2){
+            $preffer_arr[] = $preffer[$i];
+         }
+
+
+        dd($preffer_arr);
+            DB::table('career_details')->insert([
+                'job_nature' => $preffer_arr[0],
+                'looking_for' => $preffer_arr[1],
+                'present_sallary' => $preffer_arr[2],
+                'exp_sallary' => $preffer_arr[3],
+                'objective' => ' ',
+                'user_id' => Auth::id()
+                ]);
+    // end academic details from bdjobs
+
+            // Professional details from bdjobs
+    $existdata_academic = DB::table('special_details')
+            ->where('user_id', Auth::id())
+            ->delete();
+
+        $special = $mainArray['Specialization:'];
+        $special_arr = array();
+        $count = 0;
+         for($i = 2; $i < count($special); $i++){
+
+            if($i % 2 == 0){
+                $temp = $count++;
+            }
+                $special_arr[$temp][] = $special[$i];
+         }
+        //  dd($special_arr);
+
+         foreach ($special_arr as $key => $spec) {
+            DB::table('special_details')->insert([
+                'skill' => $spec[0],
+                'description' => $spec[1],
+                'how_did_you_learn' => '',
+                'user_id' => Auth::id()
+                ]);
+         }
+    // end academic details from bdjobs
+
+            // Professional details from bdjobs
+    $existdata_academic = DB::table('language_details')
+            ->where('user_id', Auth::id())
+            ->delete();
+
+        $language = $mainArray['Language Proficiency:'];
+        $language_arr = array();
+        $count = 0;
+         for($i = 4; $i < count($language); $i++){
+
+            if($i % 4 == 0){
+                $temp = $count++;
+            }
+                $language_arr[$temp][] = $language[$i];
+         }
+        //  dd($language_arr);
+
+         foreach ($language_arr as $key => $lang) {
+            DB::table('language_details')->insert([
+                'language' => $lang[0],
+                'reading' => $lang[1],
+                'writing' => $lang[2],
+                'speaking' => $lang[3],
+                'user_id' => Auth::id()
+                ]);
+         }
+    // end academic details from bdjobs
+
+
+
 
 }
 
-
-// $cv = convert_doc('$filename.doc');
-
-//         // $academic = $cv['Academic Qualification:'];
-//         if(empty($cv)){
-//             echo "Please Don't edit your cv after downloading!";
-//         }else{
-//             print_r($cv);
-//         }
 
 
 }

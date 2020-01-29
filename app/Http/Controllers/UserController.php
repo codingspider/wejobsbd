@@ -89,7 +89,7 @@ class UserController extends Controller
             'active_status' => 1,
         ]);
 
-        DB::table('resumes')->insert([
+        DB::table('personal_details')->insert([
             'user_id' => $id,
             'first_name'=> 'First Name',
             'last_name'=> 'Last Name',
@@ -98,7 +98,7 @@ class UserController extends Controller
             'gender'=> 'Gender',
             'dob'=> 'Date of Birth',
             'nationality'=> 'Nationality',
-            'nid'=> 'NID',
+            'nid'=> '123456789',
             'maritial'=> 'Marital',
             'religion'=> 'Religion',
             'pid'=> 'Passport Issue Date',
@@ -106,20 +106,35 @@ class UserController extends Controller
             'mobile2'=> '0123654789',
             'email'=> 'email@gmail.com',
             'email2'=> 'email@gmail.com',
-            'present_add'=> 'Present Address',
+
+        ]);
+        DB::table('address_details')->insert([
+            'user_id' => $id,
+             'present_add'=> 'Present Address',
             'permanent_add'=> 'Permanent Address',
-            'present_sallary'=> 'Present Sallary',
+
+             ]);
+        DB::table('career_details')->insert([
+            'user_id' => $id,
             'looking_for'=> 'Looking For',
             'job_nature'=> 'Job Nature',
             'exp_sallary'=> 'Expect Sallary',
+            'present_sallary'=> 'Present Sallary',
             'objective'=> 'Career Objective',
+
+             ]);
+        DB::table('prefer_job_details')->insert([
+            'user_id' => $id,
             'job_categories'=> 'Job Categories',
-            'job_location'=> 'Job Location',
-            'summery'=> 'Career Summary',
+            'job_location'=> 'Job Location'
+
+             ]);
+        DB::table('other_details')->insert([
+            'user_id' => $id,
+           'summery'=> 'Career Summary',
             'qualification'=> 'Qualification',
             'keywords'=> 'keywords',
-            'keywords'=> 'keywords',
-        ]);
+             ]);
 
 
 

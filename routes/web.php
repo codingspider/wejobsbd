@@ -19,8 +19,10 @@ Route::post('/prefer/jobs/details/edit', 'ResumeController@prefer_details_edit')
 Route::post('/dashboard/academic/training/summary/edit', 'ResumeController@training_details_edit');
 Route::post('/dashboard/employment/details/edit', 'ResumeController@employement_details_edit');
 Route::post('/dashboard/army/edit/submit', 'ResumeController@others_employement_details_edit');
-Route::post('/dashboard/others/information/details/edit', 'ResumeController@others_details_edit');
+Route::post('dashboard/special/information/details', 'ResumeController@specail_details');
+
 Route::post('/dashboard/others/information/reference/edit', 'ResumeController@reference_details_edit');
+Route::post('/dashboard/certificatte1/details2/edit', 'ResumeController@certificatte1_update');
 Route::post('/other/relavant/information/update', 'ResumeController@other_relavamt_information_update');
 //delete routes
 Route::get('/dashboard/personaldetails/delete/{id}', 'TestController@personaldetails_delete');
@@ -139,6 +141,8 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
 
     Route::post('others/information/details', 'ResumeController@others_details');
     Route::post('others/information/language', 'ResumeController@others_language');
+    Route::post('language/update', 'ResumeController@others_language_edit');
+
     Route::post('others/information/reference', 'ResumeController@others_reference');
     Route::post('army/submit', 'ResumeController@other_employ_history');
 
