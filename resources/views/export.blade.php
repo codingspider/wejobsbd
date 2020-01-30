@@ -174,7 +174,6 @@
     </table>
     @endif
     <!-- Special Qualification end -->
-    <br><br>
     <!-- Training Summary: -->
     @if(!empty($employments))
 
@@ -205,7 +204,7 @@
     <table>
         <thead>
             <tr>
-                <th><span class="title">Training Summary:</span></th>
+                <th><span class="title">Education Qualification:</span></th>
             </tr>
         </thead>
         <tbody>
@@ -224,15 +223,38 @@
                             </tr>
                         </thead>
                         <tbody>
-                             @foreach($training_title as $training )
+                             @foreach($education_level as $education )
                             <tr>
-                               <td>{{ $education->education_level }} </td>
+                               <!-- <td>{{ $education->education_level }} </td>
                                 <td>{{ $education->major_group  }} </td>
                                 <td>{{ $education->Institute }} </td>
                                 <td> {{ $education->result }}</td>
                                 <td>{{ $education->passing_year }} </td>
                                 <td>{{ $education->duration }} </td>
-                                <td>{{ $education->achievement }} </td>
+                                <td>{{ $education->achievement }} </td> -->
+
+                                <td>
+                                    <p>{{ $education->education_level }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $education->major_group  }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $education->Institute }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $education->result }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $education->passing_year }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $education->duration }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $education->achievement }}</p>
+                                </td>
+
                             </tr>
                             @endforeach
                         </tbody>
@@ -268,13 +290,27 @@
                         <tbody>
                              @foreach($training_title as $training )
                             <tr>
-                                <th>{{ $training->training_title }}</th>
-                                <td>{{ $training->training_country  }} </td>
-                                <td>{{ $training->training_topics }} </td>
-                                <td>{{ $training->training_year }}</td>
-                                <td>{{ $training->training_inst }} </td>
-                                <td>{{ $training->training_period  }} </td>
-                                <td>{{ $training->training_locate }} </td>
+                                 <td>
+                                    <p>{{ $training->training_title }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $training->training_country  }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $training->training_topics }} </p>
+                                </td>
+                                <td>
+                                    <p>{{ $training->training_year }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $training->training_institute }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $training->training_duration  }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ $training->training_location }}</p>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -337,8 +373,8 @@
                         <tbody>
                              @foreach($specials as $value )
                             <tr>
-                                <td>{{ $value-> skill }}</td>
-                                <td>{{ $value-> skill_description  }}</td>
+                                <td>{{ $value->skill }}</td>
+                                <td>{{ $value->description  }}</td>
                             </tr>
                             @endforeach
 
@@ -370,12 +406,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($languages as $language)
                             <tr>
                                <td>{{ $language->language }}</td>
                                 <td>{{ $language->reading }}</td>
                                 <td>{{ $language->writing }}</td>
                                 <td>{{ $language->speaking  }}</td>
                             </tr>
+                        @endforeach
 
                         </tbody>
                     </table>
