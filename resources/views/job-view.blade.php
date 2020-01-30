@@ -439,7 +439,11 @@
                             <p class="text-muted">@lang('app.resume_file_types')</p>
                             {!! e_form_error('resume', $errors) !!}
                         </div>
+                        <div class="checkbox disabled">
+                        <label><input type="checkbox" name="wejobs_format" value="{{ Auth::id() }}"> Select your wejobs cv format </label>
+                        </div>
                         <input type="hidden" name="job_id" value="{{$job->id}}" />
+                        <input type="hidden" name="emp_id" value="{{ $job->user_id }}" />
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">@lang('app.close')</button>

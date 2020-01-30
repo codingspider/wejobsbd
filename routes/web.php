@@ -9,6 +9,7 @@ Route::get('resume/doc/file/export', 'ResumeController@resumegenerateDocx');
 Route::get('test', 'TestController@test');
 Route::post('test/fetch', 'TestController@fetch');
 Route::get('sweetalert/{type}','TestController@notification');
+Route::get('view/applicants/cv/{wejobs_format}','UserController@applicant_cv');
 //edit routes
 Route::post('/dashboard/personal/details/', 'ResumeController@personal_details');
 Route::post('dashboard/academic/details/edit', 'ResumeController@academic_details_edit');

@@ -337,15 +337,25 @@ class UserController extends Controller
     public function employerApplicant(){
         $title = __('app.applicant');
         $employer_id = Auth::user()->id;
-        $applications = JobApplication::whereEmployerId($employer_id)->orderBy('id', 'desc')->paginate(20);
+        // $applications = JobApplication::whereEmployerId($employer_id)->orderBy('id', 'desc')->paginate(20);
+        // dd($applications);
 
+        $applications = DB::table('job_applications')
+            ->join('users', 'users.id', '=', 'job_applications.employer_id')
+            ->join('jobs', 'jobs.id', '=', 'job_applications.job_id')
+            ->select('job_applications.*', 'users.name as ename','users.company as ecompany', 'jobs.job_title as jtitle')
+            ->where('employer_id',$employer_id)
+            ->paginate(20);
+        // dd($applications);
         return view('admin.applicants', compact('title', 'applications'));
     }
 
     public function makeShortList($application_id){
-        $applicant = JobApplication::find($application_id);
-        $applicant->is_shortlisted = 1;
-        $applicant->save();
+        // dd($application_id);
+
+        $applicant = DB::table('job_applications')->where('id', $application_id)->update([
+            'is_shortlisted' => 1
+        ]);
         return back()->with('success', __('app.success'));
     }
 
@@ -435,4 +445,26 @@ class UserController extends Controller
         }
     }
 
+    public function applicant_cv($wejobs_format){
+
+
+    $personaldetails = DB::table('personal_details')->where('user_id', $wejobs_format)->first();
+    $address = DB::table('address_details')->where('user_id', $wejobs_format)->orderBy('id', 'desc')->first();
+    $career = DB::table('career_details')->where('user_id', $wejobs_format)->orderBy('id', 'desc')->first();
+    $prefer_jobs = DB::table('prefer_job_details')->where('user_id', $wejobs_format)->orderBy('id', 'desc')->first();
+    $career_summery = DB::table('other_details')->where('user_id', $wejobs_format)->orderBy('id', 'desc')->first();
+    $education_level = DB::table('academic_details')->where('user_id', $wejobs_format)->get();
+    $training_title = DB::table('training__details')->where('user_id', $wejobs_format)->get();
+    $certificate = DB::table('professional_details')->where('user_id', $wejobs_format)->get();
+    $employments = DB::table('employment_details')->where('user_id', $wejobs_format)->get();
+    $others_employments = DB::table('resumes2')->where('user_id', $wejobs_format)->whereNotNull('batch')->get();
+    $specials = DB::table('special_details')->where('user_id', $wejobs_format)->get();
+    $languages = DB::table('language_details')->where('user_id', $wejobs_format)->get();
+    $reference = DB::table('refernce_details')->where('user_id', $wejobs_format)->get();
+    $images = DB::table('photograph')->where('user_id', $wejobs_format)->orderBy('id', 'desc')->first();
+    $word_resume = DB::table('resumes')->whereNotNull('resume')->where('user_id', $wejobs_format)->orderBy('id', 'desc')->first();
+    $gender = DB::table('genders')->get();
+
+    	return  view('applicatn_cv', compact('data', 'personaldetails', 'address', 'career', 'prefer_jobs','career_summery','word_resume','education_level','training_title','certificate', 'employments', 'others_employments', 'specials', 'languages', 'reference', 'gender', 'images'));
+    }
 }

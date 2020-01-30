@@ -9,7 +9,7 @@
 
                     <tr>
                         <th>@lang('app.name')</th>
-                        <th>@lang('app.employer')</th>
+                        <th>Employer</th>
                         <th>#</th>
                     </tr>
 
@@ -17,24 +17,25 @@
                         <tr>
                             <td>
                                 <i class="la la-user"></i> {{$application->name}}
-                                <p class="text-muted"><i class="la la-clock-o"></i> {{$application->created_at->format(get_option('date_format'))}} {{$application->created_at->format(get_option('time_format'))}}</p>
+                                <p class="text-muted"><i class="la la-clock-o"></i> {{ $application->created_at }}</p>
                                 <p class="text-muted"><i class="la la-envelope-o"></i> {{$application->email}}</p>
                                 <p class="text-muted"><i class="la la-phone-square"></i> {{$application->phone_number}}</p>
+                                @if($application->wejobs_format)
+
+                                <p class="text-muted"><i class="la la-book"></i>  <a href="{{ URL::to('view/applicants/cv/'.$application->wejobs_format) }}"> View applicants resume  </a> </p>
+                                @else
+                                <p class="text-muted"><i class="la la-book"></i> <a href="{{ URL::to('uploads/'.$application->resume) }}"> View applicants resume  </a> </p>
+
+                                @endif
                             </td>
 
                             <td>
-                                @if( ! empty($application->job->job_title))
-                                    <p>
-                                        <a href="{{route('job_view', $application->job->job_slug)}}" target="_blank">{{$application->job->job_title}}</a>
-                                    </p>
-                                @endif
-
-                                @if( ! empty($application->job->employer->company))
-                                    <p>{{$application->job->employer->company}}</p>
-                                @endif
+                                <p class="text-muted"><i class="la la-book"></i> {{ $application->jtitle }}</p>
+                                 <p class="text-muted"><i class="la la-user"></i> {{ $application->ename }}</p>
+                                 <p class="text-muted"><i class="la la-clock-o"></i> {{ $application->ecompany }}</p>
                             </td>
                             <td>
-                                @if( ! $application->is_shortlisted)
+                                @if($application->is_shortlisted == NULL)
                                     <a href="{{route('make_short_list', $application->id)}}" class="btn btn-success"><i class="la la-user-plus"></i> @lang('app.shortlist') </a>
                                 @else
                                     @lang('app.shortlisted')

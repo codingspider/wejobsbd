@@ -153,12 +153,14 @@ class JobController extends Controller
      * Apply to job
      */
     public function applyJob(Request $request){
+
+        
         $rules = [
             'name'              => 'required',
             'email'             => 'required',
             'phone_number'      => 'required',
             'message'           => 'required',
-            'resume'            => 'required',
+
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -176,26 +178,19 @@ class JobController extends Controller
 
         if ($request->hasFile('resume')){
             $image = $request->file('resume');
-            $valid_extensions = ['pdf','doc','docx'];
-            if ( ! in_array(strtolower($image->getClientOriginalExtension()), $valid_extensions) ){
-                session()->flash('job_validation_fails', true);
-                return redirect()->back()->withInput($request->input())->with('error', trans('app.resume_file_type_allowed_msg') ) ;
-            }
+             $image = $request->file('resume');
 
-            $file_base_name = str_replace('.'.$image->getClientOriginalExtension(), '', $image->getClientOriginalName());
+            $image_name = time() . '.' . $image->getClientOriginalExtension();
 
-            $image_name = strtolower(time().str_random(5).'-'.str_slug($file_base_name)).'.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads');
 
-            $imageFileName = 'uploads/resume/'.$image_name;
-            try{
-                //Upload original image
-                Storage::disk('public')->put($imageFileName, file_get_contents($image));
+            $image->move($destinationPath, $image_name);
 
                 $job = Job::find($request->job_id);
 
                 $application_data = [
                     'job_id'                => $request->job_id,
-                    'employer_id'           => $job->user_id,
+                    'employer_id'           => $request->emp_id,
                     'user_id'               => $user_id,
                     'name'                  => $request->name,
                     'email'                 => $request->email,
@@ -207,10 +202,20 @@ class JobController extends Controller
 
                 session()->forget('job_validation_fails');
                 return redirect()->back()->withInput($request->input())->with('success', trans('app.job_applied_success_msg')) ;
+        }else{
+            $application_data = [
+                    'job_id'                => $request->job_id,
+                    'employer_id'           => $request->emp_id,
+                    'user_id'               => $user_id,
+                    'name'                  => $request->name,
+                    'email'                 => $request->email,
+                    'phone_number'          => $request->phone_number,
+                    'message'               => $request->message,
+                    'wejobs_format'         => $request->wejobs_format,
+                ];
+                JobApplication::create($application_data);
+                return redirect()->back()->withInput($request->input())->with('success', trans('app.job_applied_success_msg')) ;
 
-            } catch (\Exception $e){
-                return redirect()->back()->withInput($request->input())->with('error', $e->getMessage()) ;
-            }
         }
 
         return redirect()->back()->withInput($request->input())->with('error', trans('app.error_msg')) ;

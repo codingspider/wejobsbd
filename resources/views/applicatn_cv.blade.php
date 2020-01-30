@@ -1,19 +1,9 @@
-@extends('layouts.dashboard')
 
-@section('content')
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="{{ asset('assets/FileSaver.js')}}"></script>
 <script src="{{ asset('assets/jquery.wordexport.js') }}"></script>
-
-<button onclick="window.location.href = '{{ URL::to('generate-docx') }}'">Export as .PDF</button>
-<button class="word-export" href="javascript:void(0)"> Export as .doc </button>
-<button onclick="window.location.href = '{{ URL::to('uploads/'.$word_resume->resume) }}'">View Your Uploaded Resume</button>
-
-<button type="button" data-toggle="modal" data-target="#bdjosbcv">
-    Upload Your Bdjobs CV
-</button>
-
-@include('modal.bdjobscv')
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 <div class="content" id="page-content">
 <div class="col-md-12" >
@@ -329,6 +319,3 @@ function myFunction() {
 }
 </script>
 
-
-
-@endsection

@@ -7,6 +7,7 @@ error_reporting(0);
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+use File;
 class BdJobsController extends Controller
 {
 
@@ -57,6 +58,13 @@ public function searchForText($text, $array)
 
 public function convert_doc(Request $request )
 {
+        $id = Auth::id();
+        $image = DB::table('resumes')->where('user_id', '=', $id)->first();
+
+        if(file_exists(public_path() . '/uploads/' . $image->resume)){
+            unlink(public_path() . '/uploads/' . $image->resume);
+        }
+
      if ($files = $request->file('resume')) {
 
             $image = $request->file('resume');
@@ -66,6 +74,10 @@ public function convert_doc(Request $request )
             $destinationPath = public_path('/uploads');
 
             $filename = $image->move($destinationPath, $image_name);
+            DB::table('resumes')->insert([
+                'resume'=>$image_name,
+                'user_id'=>Auth::id()
+            ]);
         }
 
     $text = $this->convertToText($filename);
@@ -346,9 +358,7 @@ public function convert_doc(Request $request )
          for($i = 1; $i < count($preffer); $i+=2){
             $preffer_arr[] = $preffer[$i];
          }
-
-
-        dd($preffer_arr);
+        // dd($preffer_arr);
             DB::table('career_details')->insert([
                 'job_nature' => $preffer_arr[0],
                 'looking_for' => $preffer_arr[1],
@@ -413,9 +423,80 @@ public function convert_doc(Request $request )
                 ]);
          }
     // end academic details from bdjobs
+// dd($mainArray);
+    // Career and Application Information from bdjobs
+    $existdata_academic = DB::table('personal_details')
+            ->where('user_id', Auth::id())
+            ->delete();
 
+        $personal = $mainArray['Personal Details :'];
+        $personal_arr = array();
+        $count = 0;
+         for($i = 1; $i < count($personal); $i+=2){
+            $personal_arr[] = $personal[$i];
+         }
+        //  dd($personal_arr);
 
+         $personal_info =$mainArray[name];
 
+            DB::table('personal_details')->insert([
+                'first_name' => $mainArray[name],
+                'father_name' => $personal_arr[0],
+                'mother_name' => $personal_arr[1],
+                'dob' => $personal_arr[2],
+                'gender' => $personal_arr[3],
+                'maritial' => $personal_arr[4],
+                'nationality' => $personal_arr[5],
+                'nid' => $personal_arr[6],
+                'religion' => $personal_arr[7],
+                'pa_number' => ' ',
+                'pid' => ' ',
+                'mobile1' => $mainArray[MobileNo1],
+                'mobile2' => $mainArray[MobileNo2],
+                'email' => $mainArray[e-mail],
+                'email2' => ' ',
+                'user_id' => Auth::id()
+                ]);
+
+            $existdata_academic = DB::table('address_details')
+            ->where('user_id', Auth::id())
+            ->delete();
+
+            DB::table('address_details')->insert([
+                'present_add' => $mainArray[Address],
+                'permanent_add' => '',
+                'user_id' => Auth::id()
+                ]);
+
+    // end academic details from bdjobs
+
+    // Career and Application Information from bdjobs
+    $existdata_academic = DB::table('refernce_details')
+            ->where('user_id', Auth::id())
+            ->delete();
+
+        $reference = $mainArray['Reference (s):'];
+
+        $reference_arr = array();
+        $count = 0;
+         for($i = 5; $i < count($reference); $i+=3){
+            $reference_arr[] = $reference[$i];
+         }
+        // dd($reference_arr);
+
+            DB::table('refernce_details')->insert([
+                'ref_name' => $reference_arr[0],
+                'ref_organization' => $reference_arr[1],
+                'ref_designation' => $reference_arr[2],
+                're_address' => $reference_arr[3],
+                'ref_mobile' => $reference_arr[6],
+                'ref_email' => '',
+                'ref_relation' => $reference_arr[8],
+                'user_id' => Auth::id()
+                ]);
+    // end academic details from bdjobs
+
+            return redirect()->to('dashboard/view/resume');
 
 }
 
