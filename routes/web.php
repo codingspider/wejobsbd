@@ -10,6 +10,8 @@ Route::get('test', 'TestController@test');
 Route::post('test/fetch', 'TestController@fetch');
 Route::get('sweetalert/{type}','TestController@notification');
 Route::get('view/applicants/cv/{wejobs_format}','UserController@applicant_cv');
+Route::get('dashboard/add/home/image','HomeController@home_image');
+Route::post('home/page/image/submit','HomeController@home_image_submit');
 //edit routes
 Route::post('/dashboard/personal/details/', 'ResumeController@personal_details');
 Route::post('dashboard/academic/details/edit', 'ResumeController@academic_details_edit');

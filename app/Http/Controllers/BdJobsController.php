@@ -59,11 +59,13 @@ public function searchForText($text, $array)
 public function convert_doc(Request $request )
 {
         $id = Auth::id();
-        $image = DB::table('resumes')->where('user_id', '=', $id)->first();
+        $data_img =   DB::table('resumes')->where('user_id',$id)->first();
+        $filename =  public_path("/uploads/".$data_img->resume);
 
-        if(file_exists(public_path() . '/uploads/' . $image->resume)){
-            unlink(public_path() . '/uploads/' . $image->resume);
-        }
+            if(file_exists($filename))
+            {
+                unlink($filename);
+            }
 
      if ($files = $request->file('resume')) {
 

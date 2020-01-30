@@ -232,6 +232,7 @@ $user = Auth::user();
                                 <ul class="dropdown-menu" style="display: none;">
                                     <li><a class="sidebar-link" href="{{route('general_settings')}}">@lang('app.general_settings')</a></li>
                                     <li><a class="sidebar-link" href="{{ URL::to('dashboard/settings/logo/edit') }}">Logo </a></li>
+                                    <li><a class="sidebar-link" href="{{ URL::to('dashboard/add/home/image') }}">Add Home Page Image </a></li>
                                     <li><a class="sidebar-link" href="{{route('pricing_settings')}}">@lang('app.pricing')</a></li>
                                     <li><a class="sidebar-link" href="{{route('gateways_settings')}}">@lang('app.gateways')</a></li>
                                 </ul>

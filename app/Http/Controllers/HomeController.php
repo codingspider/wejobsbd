@@ -39,7 +39,8 @@ class HomeController extends Controller
         $regular_jobs = Job::active()->orderBy('id', 'desc')->with('employer')->take(15)->get();
         $blog_posts = Post::whereType('post')->with('author')->orderBy('id', 'desc')->take(3)->get();
         $packages = Pricing::all();
-        return view('home', compact('categories', 'premium_jobs','regular_jobs','packages', 'blog_posts'));
+        $image = DB::table('sliders')->orderBy('id','desc')->first();
+        return view('home', compact('image','categories', 'premium_jobs','regular_jobs','packages', 'blog_posts'));
     }
 
     public function newRegister(){
@@ -210,6 +211,43 @@ class HomeController extends Controller
         ->setPaper('a4', 'portrait');
        return $pdf->stream('document.pdf');
         // return view('export', compact('personaldetails', 'address', 'career', 'prefer_jobs', 'career_summery', 'education_level', 'training_title', 'certificate', 'employments', 'others_employments', 'specials', 'languages', 'reference', 'gender', 'images'));
+    }
+
+    public function home_image(){
+        return view('home_image');
+    }
+
+    public function home_image_submit (Request $request){
+
+
+        $data_img =   DB::table('sliders')->orderBy('id','desc')->first();
+        $filename =  public_path("/uploads/".$data_img->image);
+
+            if(file_exists($filename))
+            {
+                unlink($filename);
+            }
+
+        $request->validate([
+            'image' => 'mimes:jpeg,jpg,png,gif|required|max:10000' // max 10000kb
+        ]);
+
+        if ($files = $request->file('image')) {
+
+            $image = $request->file('image');
+
+            $image_name = time() . '.' . $image->getClientOriginalExtension();
+
+            $destinationPath = public_path('/uploads');
+
+            $image->move($destinationPath, $image_name);
+
+            DB::table('sliders')->insert([
+                'image' =>$image_name,
+
+            ]);
+            return back()->with('success', 'Image uploaded succesfully ');
+        }
     }
 
 }

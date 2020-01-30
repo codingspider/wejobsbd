@@ -2,7 +2,7 @@
 
 @section('content')
 <br>
-<div style="background-image: url({{ asset('images/env.jpg') }}); background-repeat: no-repeat; background-size: 1200px 500px;" class="home-hero-section container">
+<div style="background-image: url({{ asset('uploads/'.$image->image) }}); background-repeat: no-repeat; background-size: 1200px 500px;" class="home-hero-section container">
     <div class="job-search-bar">
         <div class="container">
             <div class="row">
@@ -39,12 +39,12 @@
                 <h4 class="mb-3">@lang('app.categories')</h4>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="container">
             <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-12">
                  <div class="row">
                     @foreach($categories as $category)
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <p>
                             <a href="{{route('jobs_listing', ['category' => $category->id])}}" class="category-link"><i class="la la-th-large"></i> {{$category->category_name}} <span class="text-muted">({{$category->job_count}})</span> </a>
                         </p>
@@ -52,17 +52,12 @@
                     @endforeach
                 </div>
             </div>
-            <div class="col-md-2">
-                <img  alt="W3Schools" src="{{ asset('images/ads.jpg') }}" width="150" height="300">
-            </div>
             </div>
         </div>
 
     </div>
 </div>
 @endif
-
-
 
 @if($premium_jobs->count())
 <div class="premium-jobs-wrap pb-5 pt-5">
@@ -100,19 +95,6 @@
                                     {{$job->employer->company}}
                                 </a>
                             </p>
-<!--
-                            <p class="text-muted m-0">
-                                <i class="la la-map-marker"></i>
-                                @if($job->city_name)
-                                {!! $job->city_name !!},
-                                @endif
-                                @if($job->state_name)
-                                {!! $job->state_name !!},
-                                @endif
-                                @if($job->state_name)
-                                {!! $job->country_name !!}
-                                @endif
-                            </p> -->
                         </div>
                     </div>
                 </div>
