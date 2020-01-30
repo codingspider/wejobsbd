@@ -171,8 +171,6 @@ class HomeController extends Controller
         DB::table('maritals')->where('id', $id)->update([
             'name' => $request->marital,
         ]);
-
-
         return redirect::to('add/marital/status')->with('success', 'Marital Category Updated. ');
     }
 
@@ -203,7 +201,7 @@ class HomeController extends Controller
         $languages = DB::table('language_details')->where('user_id', Auth::id())->get();
         $reference = DB::table('refernce_details')->where('user_id', Auth::id())->get();
         $images = DB::table('photograph')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
-        $word_resume = DB::table('resumes')->whereNotNull('resume')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+        $word_resume = DB::table('resumes')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
         $gender = DB::table('genders')->get();
 
 

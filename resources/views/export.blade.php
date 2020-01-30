@@ -386,6 +386,7 @@
     </table>
     <!-- Specialization end -->
     <br><br>
+    @if(!empty($languages))
     <!-- Language Profeciency: -->
     <table>
         <thead>
@@ -421,6 +422,7 @@
             </tr>
         </tbody>
     </table>
+    @endif
     <!-- Language Profeciency end -->
     <br><br>
     <!-- Personal Details -->
