@@ -47,7 +47,6 @@ Route::post('upload/bd/jobs/resumes', 'BdJobsController@convert_doc');
 
 
 Auth::routes();
-
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/add/gender', 'HomeController@add_gender');
 Route::get('/add/education/categories', 'HomeController@education_category');
@@ -132,6 +131,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
     Route::post ('edit/academic/details', 'ResumeController@edit_academic_data');
 
     Route::post('personal/details', 'ResumeController@personal_details');
+    Route::post('applicant/filter/', 'ResumeController@employe_filter');
 
     Route::post('address/details', 'ResumeController@address_details');
     Route::post('career/application/details', 'ResumeController@carrer_details');

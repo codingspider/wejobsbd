@@ -585,4 +585,8 @@ class ResumeController extends Controller
         return response()->download(storage_path('helloWorld.docx'));
     }
 
+    public function employe_filter(Request $request){
+       dd($request);
+    }
+
 }

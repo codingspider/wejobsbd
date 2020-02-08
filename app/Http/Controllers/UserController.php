@@ -68,7 +68,8 @@ class UserController extends Controller
 
     public function registerJobSeeker(){
         $title = __('app.register_job_seeker');
-        return view('register-job-seeker', compact('title'));
+        $countries = DB::table('countries')->get();
+        return view('register-job-seeker', compact('title','countries'));
     }
 
     public function registerJobSeekerPost(Request $request){
@@ -87,6 +88,8 @@ class UserController extends Controller
             'user_type'     => 'user',
             'password'      => Hash::make($data['password']),
             'active_status' => 1,
+            'country_id' => $data['country'],
+            'state_id' => $data['state'],
         ]);
 
         DB::table('personal_details')->insert([
@@ -337,6 +340,7 @@ class UserController extends Controller
     public function employerApplicant(){
         $title = __('app.applicant');
         $employer_id = Auth::user()->id;
+        $countries = DB::table('states')->where('country_id',18)->get();
         // $applications = JobApplication::whereEmployerId($employer_id)->orderBy('id', 'desc')->paginate(20);
         // dd($applications);
 
@@ -347,7 +351,7 @@ class UserController extends Controller
             ->where('employer_id',$employer_id)
             ->paginate(20);
         // dd($applications);
-        return view('admin.applicants', compact('title', 'applications'));
+        return view('admin.applicants', compact('title', 'applications', 'countries'));
     }
 
     public function makeShortList($application_id){

@@ -15,8 +15,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/admin.css') }}" rel="stylesheet">
-
+    <!-- <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet"/>
+    <script src="{{ asset('js/select2.js') }}"></script> -->
     @yield('page-css')
 
     <!-- Scripts -->
